@@ -48,7 +48,7 @@ ResultSet rs = pstmt.executeQuery();
 %>
 
 <%
-String sql2 = "select sum(coupon) coupon from coupon where memo like ?";
+String sql2 = "select count(c_name) coupon from company where c_memo like ?";
 PreparedStatement pstmt2 = con.prepareStatement(sql2);
 pstmt2.setString(1, "%" + memo + "%");
 ResultSet rs2 = pstmt2.executeQuery();
@@ -96,7 +96,7 @@ rs.next();
 <strong> "<%=memoo%>" 로 조회한 방문 누적 횟수는 <font color="red"><%=rs2.getInt(1) %></font>번입니다. <br></strong><br>
 <strong> 중복된 이름이 있는경우 <font color="red">고객번호</font>를 누르면 상세정보를 확인할수있습니다. </strong><br><br>
 <strong> <font color="red">고객번호</font>를 누르면 회원을 수정할수 있고, 해당 고객의 쿠폰사용을 누르면 <font color="red">10</font>회 방문시 쿠폰이 사용가능합니다.<br></strong><br>
-<strong> <font color="red">메모</font>로 조회한 고객은 제한이 한정됩니다.<br></strong></center><br>
+<strong> <font color="red">메모</font>로 조회한 고객은 기능이 한정됩니다.<br></strong></center><br>
 </table>
 </form>
 <% pstmt.close(); rs.close(); con.close(); pstmt2.close(); rs2.close(); } catch (Exception e) {

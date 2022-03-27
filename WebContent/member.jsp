@@ -38,7 +38,7 @@ function input_check() {
 </script>
 <%@include file = "header.jsp" %>
 <%@ include file ="nav_Session_X.jsp" %>
-<br><br><br>
+<br><br>
 <center>
 <table width = "500" height ="180" border="1" bordercolor = "#000000" bgcolor = "#fff200" align="center">
 <tr align="center">
@@ -56,7 +56,7 @@ function input_check() {
 
 <tr>
 <td align="center"> <font color = "black"><strong>비밀번호확인</strong> </font> </td>
-<td align="center"> <input type="password" name="password_check"> </td>
+<td align="center"> <input type="pas 	sword" name="password_check"> </td>
 </tr>
 
 <tr class="btn_group">
@@ -67,7 +67,6 @@ function input_check() {
 </td>
 </table>
 </center>
-<br><br><br><br><br><br><br><br><br>
 </form>
 <%@include file = "footer.jsp" %>
 </body>

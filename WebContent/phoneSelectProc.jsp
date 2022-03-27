@@ -83,7 +83,7 @@ rs.next();
 		String date = rs.getString("c_date");
 		String memo = rs.getString("c_memo");
 		int coupon = rs2.getInt("coupon");
-		link = "./memberUpdate.jsp?number="+number;
+		link = "./memberUpdate.jsp?number="+number+"&phonee="+phone;
 		String link2 = "./couponService.jsp?number="+number;
 		String link3 = "./memberDelete.jsp?phone="+phone+"&number="+number+"&payment="+payment;
 		String link4 = "./memberInsert2.jsp?name="+name+"&phone="+phone;
