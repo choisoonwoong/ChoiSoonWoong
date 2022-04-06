@@ -87,7 +87,7 @@ rs.next();
 		int coupon = rs2.getInt("coupon");
 		cc = rs3.getInt(2);
 		link = "./memberUpdate.jsp?number="+number+"&phonee="+phone;
-		String link2 = "./couponService.jsp?number="+number;
+		String link2 = "./couponService.jsp?number="+number+"&phone="+phone;
 		String link3 = "./memberDelete.jsp?phone="+phone+"&number="+number+"&payment="+payment+"&cc="+cc;
 		String link4 = "./memberInsert2.jsp?phone="+phone+"&name="+name;
 		String A = null; /* 메모값 복사용 */
@@ -135,7 +135,6 @@ i++; /* 순번 1씩증가 */
 <strong> <font color="red"><%=rs3.getString(1) %></font> 님의 쿠폰을 사용하지않은 방문횟수는 <font color="red"><%=cc %></font> 회이고 <br><br>
 마지막으로 쿠폰(+1)을 적립 또는 사용(-10)한 날짜는 <font color="red"><%=rs3.getString(3) %></font>이고, 총 쿠폰을 사용한 횟수는 <font color="red"><%=rs3.getString(4) %>회</font> 입니다. </strong><br>
 <br><strong>가장 상단번호 고객을 삭제하면 고객을 수정할수 없습니다. <br><br>
-<strong>고객 <font color="red">쿠폰사용</font>은 가장 상단의 메뉴만 선택가능합니다.<br>
 
 </strong></center><br><br>
 </table>

@@ -91,7 +91,7 @@ rs.next();
 		int coupon = rs2.getInt("coupon");
 		cc = rs3.getInt(2); /* 쿠폰 카운트 값 */
 		link = "./memberUpdate.jsp?number="+number+"&phonee="+phone;
-		String link2 = "./couponService.jsp?number="+number;
+		String link2 = "./couponService.jsp?number="+number+"&phone="+phone;
 		String link3 = "./memberDelete.jsp?phone="+phone+"&number="+number+"&payment="+payment+"&cc="+cc;
 		String link4 = "./memberInsert2.jsp?phone="+phone+"&name="+name;
 		String A = null; /* memo값 복사용  */
