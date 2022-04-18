@@ -43,29 +43,37 @@ graph {letter-spacing:-5px;}
 	int day_sum = 0;
 	int m = 0;
 String url = "jdbc:oracle:thin:@localhost:1521:xe";
-String sql = "select distinct year, mon, max(sum) over(partition by mon), max(sum2) over(partition by mon), nvl(max(hyun_sum) over(partition by mon),0), " +
+String sql =  "select distinct year, mon, max(sum) over(partition by mon), sum(sum2), nvl(max(hyun_sum) over(partition by mon),0), " +
 "nvl(max(hyun_cnt) over(partition by mon),0), nvl(max(card_cnt) over(partition by mon),0), nvl(max(card_sum) over(partition by mon),0), max(summ) " +
 "from (select distinct substr(d.day1,'1','2') year, substr(d.day1,'4','2') mon, " +
 "nvl(to_char(sum(c.c_money) over (partition by substr(d.day1,'4','2')),'999,999,999,999'),0) sum, " +
-" nvl(sum(c.c_money) over (partition by substr(d.day1,'4','2')),0) summ, " +
-"count(c.c_number)  over (partition by substr(d.day1,'4','2')) sum2, d.day1, to_char(e.hyun_sum,'999,999,999,999') hyun_sum, " +
+"nvl(sum(c.c_money) over (partition by substr(d.day1,'4','2')),0) summ, " +
+"count(c.c_number) over (partition by substr(d.day1,'4','2')) sum2, d.day1, to_char(e.hyun_sum,'999,999,999,999') hyun_sum, " + 
 "to_char(f.card_sum,'999,999,999,999') card_sum, e.hyun_cnt, f.card_cnt from company c right outer join company_day d " +
-"on to_date(c.c_date,'YYYY-MM-DD') = to_date(d.day1,'YYYY-MM-DD') left outer join " +
-"(select day1, count(c_number) over (partition by substr(d.day1,'4','2')) as hyun_cnt, sum(c_money) over (partition by substr(d.day1,'4','2')) as hyun_sum from " +
-"company c join company_day d on to_date(c.c_date,'YYYY-MM-DD')=to_date(d.day1,'YYYY-MM-DD') and c_payment='현금') e " +
-"on to_date(d.day1,'YYYY-MM-DD')=to_date(e.day1,'YYYY-MM-DD') " +
+"on to_date(c.c_date,'YY-MM-DD') = to_date(d.day1,'YY-MM-DD') and substr(day1,'1','2') = ? left outer join "+
+"(select day1, count(c_number) over (partition by substr(d.day1,'4','2')) as hyun_cnt, sum(c_money) over (partition by substr(d.day1,'4','2')) as hyun_sum from "+
+"company c join company_day d on to_date(c.c_date,'YY-MM-DD')=to_date(d.day1,'YY-MM-DD') and c_payment='현금' and substr(day1,'1','2') = ?) e " +
+"on to_date(d.day1,'YY-MM-DD')=to_date(e.day1,'YY-MM-DD') and substr(d.day1,'1','2') = ? " +
 "left outer join (select day1, count(c_number) over (partition by substr(d.day1,'4','2')) as card_cnt, " +
 "sum(c_money) over (partition by substr(d.day1,'4','2')) as card_sum from company c join company_day d " +
-"on to_date(c.c_date,'YYYY-MM-DD')=to_date(d.day1,'YYYY-MM-DD') and c_payment='카드') f " +
-"on to_date(d.day1,'YYYY-MM-DD')=to_date(f.day1,'YYYY-MM-DD') where substr(d.day1,'1','2') = ? " +
+"on to_date(c.c_date,'YY-MM-DD')=to_date(d.day1,'YY-MM-DD') and c_payment='카드' and substr(d.day1,'1','2') = ?) f " +
+"on to_date(d.day1,'YY-MM-DD')=to_date(f.day1,'YY-MM-DD') and substr(d.day1,'1','2') = ? where substr(d.day1,'1','2') = ? " +
 "group by d.day1, d.day2, c.c_money, c.c_number, e.hyun_sum, f.card_sum, e.hyun_cnt,f.card_cnt " +
-"order by d.day1) ms right outer join monthh m on ms.mon = m.month " +
-"group by year, mon, sum, sum2, hyun_sum, hyun_cnt, card_cnt, card_sum order by mon";
+"order by d.day1) ms right outer join monthh m on ms.mon = m.month and substr(day1,'1','2') = ? " +
+"where substr(day1,'1','2') = ? " +
+"group by day1, year, mon, sum, sum2, hyun_sum, hyun_cnt, card_cnt, card_sum order by mon"; 
 
 Class.forName("oracle.jdbc.driver.OracleDriver");
 Connection con = DriverManager.getConnection(url,"hr","hr");
 PreparedStatement pstmt = con.prepareStatement(sql);
 pstmt.setInt(1, year);
+pstmt.setInt(2, year);
+pstmt.setInt(3, year);
+pstmt.setInt(4, year);
+pstmt.setInt(5, year);
+pstmt.setInt(6, year);
+pstmt.setInt(7, year);
+pstmt.setInt(8, year);
 ResultSet rs = pstmt.executeQuery();	
 while(rs.next()) {
 	
