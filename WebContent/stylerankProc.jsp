@@ -30,25 +30,17 @@ int month = Integer.parseInt(request.getParameter("mmonth"));
 	int cut1 = 0;
 	int cut2 = 0;
 	int dyeing1 = 0;
-	int pama1 = 0;
-	int pama2 = 0;
 	int m1 = 0; /* 각 스타일별 카운트  */
 	int m2 = 0; /* 각 스타일별 카운트  */
 	int m3 = 0; /* 각 스타일별 카운트  */
-	int m4 = 0; /* 각 스타일별 카운트  */
-	int m5 = 0; /* 각 스타일별 카운트  */
 	String graph1 = null; /* 각 스타일별 그래프 */
 	String graph2 = null; /* 각 스타일별 그래프 */
 	String graph3 = null; /* 각 스타일별 그래프 */
-	String graph4 = null; /* 각 스타일별 그래프 */
-	String graph5 = null; /* 각 스타일별 그래프 */
 String url = "jdbc:oracle:thin:@localhost:1521:xe";
-String sql ="select distinct (select count(*) from company where c_money in (8000) and substr(c_date,'1','2') = ? and substr(c_date,'4','2') = ?) as student " +
-",(select count(*) from company where c_money in (9000, 10000) and substr(c_date,'1','2') = ? and substr(c_date,'4','2') = ?) as cut " +
-",(select count(*) from company where c_money in (15000, 24000, 25000, 29000, 34000, 39000) and " +
-"substr(c_date,'1','2') = ? and substr(c_date,'4','2') = ?) as dyeing1 " +
-",(select count(*) from company where c_money in (32000, 40000) and substr(c_date,'1','2') = ? and substr(c_date,'4','2') = ?) as pama1 " +
-",(select count(*) from company where c_money in (55000) and substr(c_date,'1','2') = ? and substr(c_date,'4','2') = ?) as pama2 " +
+String sql ="select distinct (select count(*) from company where c_money in (9000) and substr(c_date,'1','2') = ? and substr(c_date,'4','2') = ?) as student "+
+",(select count(*) from company where c_money between 10000 and 15000 and substr(c_date,'1','2') = ? and substr(c_date,'4','2') = ?) as cut "+
+",(select count(*) from company where c_money between 20000 and 40000 and "+
+"substr(c_date,'1','2') = ? and substr(c_date,'4','2') = ?) as dyeing1 "+
 "from company where c_money = '8000' and substr(c_date,'1','2') = ? and substr(c_date,'4','2') = ? group by c_money, c_date";
 
 Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -62,23 +54,15 @@ pstmt.setInt(5, year);
 pstmt.setInt(6, month);
 pstmt.setInt(7, year);
 pstmt.setInt(8, month);
-pstmt.setInt(9, year);
-pstmt.setInt(10, month);
-pstmt.setInt(11, year);
-pstmt.setInt(12, month);
 ResultSet rs = pstmt.executeQuery();	
 rs.next();
 	cut1 = rs.getInt(1); /* 학생컷  */
 	cut2 = rs.getInt(2); /* 성인컷  */
 	dyeing1 = rs.getInt(3); /* 염색 */
-	pama1 = rs.getInt(4); /* 파마 */
-	pama2 = rs.getInt(5); /* 파마+염색  */
 	
 	m1 = cut1/5;
 	m2 = cut2/6;
 	m3 = dyeing1/5;
-	m4 = pama1/5;
-	m5 = pama2/5;
 
 	if (m1==0) {
 		graph1 = "";
@@ -460,260 +444,6 @@ rs.next();
 	else if (m3>40) {
 		graph3 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
 	}
-	
-	if (m4==0) {
-		graph4 = "";
-	}
-	else if (m4==1) {
-		graph4 = "■";
-	}
-	else if (m4==2) {
-		graph4 = "■■";
-	}
-	else if (m4==3) {
-		graph4 = "■■■";
-	}
-	else if (m4==4) {
-		graph4 = "■■■■";
-	}
-	else if (m4==5) {
-		graph4 = "■■■■■";
-	}
-	else if (m4==6) {
-		graph4 = "■■■■■■";
-	}
-	else if (m4==7) {
-		graph4 = "■■■■■■■";
-	}
-	else if (m4==8) {
-		graph4 = "■■■■■■■";
-	}
-	else if (m4==9) {
-		graph4 = "■■■■■■■■";
-	}
-	else if (m4==10) {
-		graph4 = "■■■■■■■■■";
-	}
-	else if (m4==11) {
-		graph4 = "■■■■■■■■■■";
-	}
-	else if (m4==12) {
-		graph4 = "■■■■■■■■■■■";
-	}
-	else if (m4==13) {
-		graph4 = "■■■■■■■■■■■■";
-	}
-	else if (m4==14) {
-		graph4 = "■■■■■■■■■■■■■";
-	}
-	else if (m4==15) {
-		graph4 = "■■■■■■■■■■■■■■";
-	}
-	else if (m4==16) {
-		graph4 = "■■■■■■■■■■■■■■■";
-	}
-	else if (m4==17) {
-		graph4 = "■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==18) {
-		graph4 = "■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==19) {
-		graph4 = "■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==20) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==21) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==22) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==23) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==24) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==25) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==26) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==27) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==28) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==29) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==30) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==31) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==32) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==33) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==34) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==35) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==36) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==37) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==38) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==39) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4==40) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m4>40) {
-		graph4 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	
-	if (m5==0) {
-		graph5 = "";
-	}
-	else if (m5==1) {
-		graph5 = "■";
-	}
-	else if (m5==2) {
-		graph5 = "■■";
-	}
-	else if (m5==3) {
-		graph5 = "■■■";
-	}
-	else if (m5==4) {
-		graph5 = "■■■■";
-	}
-	else if (m5==5) {
-		graph5 = "■■■■■";
-	}
-	else if (m5==6) {
-		graph5 = "■■■■■■";
-	}
-	else if (m5==7) {
-		graph5 = "■■■■■■■";
-	}
-	else if (m5==8) {
-		graph5 = "■■■■■■■";
-	}
-	else if (m5==9) {
-		graph5 = "■■■■■■■■";
-	}
-	else if (m5==10) {
-		graph5 = "■■■■■■■■■";
-	}
-	else if (m5==11) {
-		graph5 = "■■■■■■■■■■";
-	}
-	else if (m5==12) {
-		graph5 = "■■■■■■■■■■■";
-	}
-	else if (m5==13) {
-		graph5 = "■■■■■■■■■■■■";
-	}
-	else if (m5==14) {
-		graph5 = "■■■■■■■■■■■■■";
-	}
-	else if (m5==15) {
-		graph5 = "■■■■■■■■■■■■■■";
-	}
-	else if (m5==16) {
-		graph5 = "■■■■■■■■■■■■■■■";
-	}
-	else if (m5==17) {
-		graph5 = "■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==18) {
-		graph5 = "■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==19) {
-		graph5 = "■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==20) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==21) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==22) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==23) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==24) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==25) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==26) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==27) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==28) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==29) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==30) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==31) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==32) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==33) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==34) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==35) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==36) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==37) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==38) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==39) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5==40) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
-	else if (m5>40) {
-		graph5 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-	}
 %>
 <tr>
 <td align="left"><strong>학생컷 <graph><font color= "#f76996"> <%=graph1 %> </font></strong></graph>&nbsp;&nbsp;
@@ -730,15 +460,6 @@ rs.next();
 <strong> <font color="#3f48cc"> <%=dyeing1 %>건 </font></strong> 
 </td></tr>
 
-<tr>
-<td align="left"><strong>파마 <graph><font color="#f76996"> <%=graph4 %> </font></strong></graph>&nbsp;&nbsp;
-<strong> <font color="#3f48cc"> <%=pama1 %>건 </font></strong>
-</td></tr>
-
-<tr>
-<td align="left"><strong>파마 + 염색 <graph><font color="#f76996"> <%=graph5 %> </font></strong></graph>&nbsp;&nbsp;
-<strong> <font color="#3f48cc"> <%=pama2 %>건</font></strong>
-</td></tr>
 <%pstmt.close(); rs.close(); con.close(); %>
 </table>
 <%

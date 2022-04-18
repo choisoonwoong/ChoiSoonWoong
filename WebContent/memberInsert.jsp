@@ -124,7 +124,7 @@ var member = function(value){
 	$("#zero3").val("0");
 	$("#zero4").val("0");
 	$("#zero5").val("카드");
-	$("#money").val("9000");
+	$("#money").val("10000");
 }
 </script>
 
